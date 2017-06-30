@@ -23,7 +23,8 @@ namespace PersonalWebsite_MVC.Controllers
         {
             Blogs blog = db.Blogs.FirstOrDefault(x => x.BlogId == id);
 
-            ViewBag.BlogId = id;
+           
+            Session["BlogId"] = id;
 
             return View(blog);
         }
@@ -31,16 +32,15 @@ namespace PersonalWebsite_MVC.Controllers
         [HttpPost]
         public ActionResult YorumYap(string Description)
         {
-
             Comments yorum = new Comments();
-            yorum.Title = "dsadsa";
+            yorum.Title = "Test Yorumu";
             yorum.Description = Description;
             yorum.UserId = 1;
             yorum.RegisterDate = DateTime.Now;
-            yorum.BlogId =1;
+            yorum.BlogId =Convert.ToInt16(Session["BlogId"]);
             db.Comments.Add(yorum);
             db.SaveChanges();
-            return RedirectToAction("BlogDetayBul","Index");
+            return RedirectToAction("BlogDetayBul","BlogDetay");
         }
 
 	}

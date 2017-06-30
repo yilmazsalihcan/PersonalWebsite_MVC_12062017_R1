@@ -31,19 +31,37 @@
                                 <img src="~/Content/admin/uploadimage/s4.jpg" />
                             </div>
                             <div style="text-align:center;">
-                                <b>@Model.Title</b>
+                                <h3>@Model.Title</h3>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="text-align:center">
                                 @Model.Description
-                            </div>
+                            </div><br/>
+                            <div class="col-md-6"><b>Tarih:</b>:@Model.RegisterDate.Value.ToShortDateString()</div>
+                            <div class="col-md-6"><b>Yazar:</b>:@Model.Users.Username</div>
+                        </div>
+                        <br/>
+                        <div class="row" style="text-align:center">
+                            <h3 style="text-decoration:underline">Yorumlar</h3>
+                            @{ 
+                                    PERSONALEntities db = new PERSONALEntities();
+                                    short blogId2 = Convert.ToInt16(Session["BlogId"]);
+                                    List<Comments> yorum = db.Comments.Where(x => x.BlogId == blogId2).ToList();
+                                    foreach (var item in yorum)
+                                    {
+                                    <div class="row" style="border:1px solid black">
+                                    <div style="float:left">"@db.Users.FirstOrDefault(x => x.UserId == item.UserId).Username" dedi ki:</div> <br/>
+                                    <div style="float:left">@string.Format("{0:D}", @item.RegisterDate)</div><br/>
+                                    <div style="float:left">@item.Description</div>    
+                                    
+                                    </div><br/>
+                                }
 
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6"><b>Tarih</b>:@Model.RegisterDate.Value.ToShortDateString()</div>
-                            <div class="col-md-6"><b>Yazar</b>:@Model.Users.Username</div>
+                            }
                             
-                        </div>
+
+
+                        </h3>
                         
                     </div>
                 </div>
