@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PERSONALModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PERSONALModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Blogs">
           <Key>
             <PropertyRef Name="BlogId" />
@@ -33,6 +33,7 @@
           <Property Name="Title" Type="varchar" MaxLength="50" />
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="RegisterDate" Type="smalldatetime" />
+          <Property Name="BlogId" Type="smallint" />
         </EntityType>
         <EntityType Name="Images">
           <Key>
@@ -96,6 +97,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Comments_Blogs">
+          <End Role="Blogs" Type="Self.Blogs" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blogs">
+              <PropertyRef Name="BlogId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="BlogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Comments_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
@@ -151,6 +164,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Blogs" EntitySet="Blogs" />
           </AssociationSet>
+          <AssociationSet Name="FK_Comments_Blogs" Association="Self.FK_Comments_Blogs">
+            <End Role="Blogs" EntitySet="Blogs" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
           <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Comments" EntitySet="Comments" />
@@ -182,6 +199,7 @@
           <NavigationProperty Name="Categories1" Relationship="PERSONALModel.FK_Blogs_Categories" FromRole="Blogs" ToRole="Categories" />
           <Property Name="ImageId" Type="Int16" />
           <NavigationProperty Name="Images" Relationship="PERSONALModel.FK_Blogs_Images" FromRole="Blogs" ToRole="Images" />
+          <NavigationProperty Name="Comments" Relationship="PERSONALModel.FK_Comments_Blogs" FromRole="Blogs" ToRole="Comments" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -201,6 +219,8 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="RegisterDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Comments_Users" FromRole="Comments" ToRole="Users" />
+          <Property Name="BlogId" Type="Int16" />
+          <NavigationProperty Name="Blogs" Relationship="PERSONALModel.FK_Comments_Blogs" FromRole="Comments" ToRole="Blogs" />
         </EntityType>
         <EntityType Name="Images">
           <Key>
@@ -314,6 +334,10 @@
             <End Role="Images" EntitySet="Images" />
             <End Role="Blogs" EntitySet="Blogs" />
           </AssociationSet>
+          <AssociationSet Name="FK_Comments_Blogs" Association="PERSONALModel.FK_Comments_Blogs">
+            <End Role="Blogs" EntitySet="Blogs" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Blogs_Categories">
           <End Type="PERSONALModel.Categories" Role="Categories" Multiplicity="0..1" />
@@ -336,6 +360,18 @@
             </Principal>
             <Dependent Role="Blogs">
               <PropertyRef Name="ImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Blogs">
+          <End Type="PERSONALModel.Blogs" Role="Blogs" Multiplicity="0..1" />
+          <End Type="PERSONALModel.Comments" Role="Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blogs">
+              <PropertyRef Name="BlogId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="BlogId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -369,6 +405,7 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="PERSONALModel.Comments">
               <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="BlogId" ColumnName="BlogId" />
                 <ScalarProperty Name="CommentId" ColumnName="CommentId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />

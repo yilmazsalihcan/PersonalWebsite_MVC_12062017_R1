@@ -29,38 +29,42 @@
                 List<Categories> kategori = db.Categories.ToList();        
                 List<Blogs> blog=db.Blogs.ToList();
                 List<Images> image = db.Images.ToList();
-                string deger=image.FirstOrDefault(x => x.ImageId == 2).ImageURL;
+                string deger=image.FirstOrDefault(x => x.ImageId==2).ImageURL;
                 
                 deger=deger.Replace("\\","/");
                 
             }
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-7">
                     @foreach (Blogs blogumuz in Model)
                     {
                         <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8" style="border:1px solid black">
-                                <div style="text-align:center"><img src="Content/admin/uploadimage/s4.jpg" /></div>
+                            <div class="col-md-4"></div>
+                            <div class="col-md-8" >
+                                <div style="text-align:center"><img src="../Content/admin/uploadimage/s4.jpg" /></div>
                                 <div style="text-align:center">Başlık:<b>@blogumuz.Title</b></div>
                                 @{
                         int uzunluk = blogumuz.Description.Length;
                         if (uzunluk > 100)
                         {
                             string yeniaciklama = blogumuz.Description.Substring(0, 50);
-                            <div>@yeniaciklama<a href="/BlogDetay/BlogDetayBul/@blogumuz.BlogId" class="btn btn-primary">Devamını Oku</a></div>
+                            <div style="text-align:center">@yeniaciklama<br/><a href="/BlogDetay/BlogDetayBul/@blogumuz.BlogId">Devamını Oku</a></div>
                         }
                         else
                         {
-                            <div>@blogumuz.Description</div>
-                        }
+                            <div style="text-align:center">@blogumuz.Description</div>
+                            <div style="text-align:center"><a href="/BlogDetay/BlogDetayBul/@blogumuz.BlogId">Devamını Oku </a><a href="/BlogDetay/BlogDetayBul/@blogumuz.BlogId">Yorum Yap</a></div>
+                                    }
                                 }
+                               
+
+
                                 <div class="row">
-                                    <div class="col-md-6">Oluşturulma Tarihi:@blogumuz.RegisterDate</div>
-                                    <div class="col-md-3">@blogumuz.BlogId</div>
-                                    <div class="col-md-3">
-                                        <div>Yazar:@kullanicilar.FirstOrDefault(x => x.UserId == blogumuz.UserId).Username</div>
-                                        <div>Kategori:@kategori.FirstOrDefault(x=>x.CategoryId==blogumuz.CategoryId).CategoryName</div>
+                                    <div class="col-md-6"><b style="color:blue">Oluşturulma Tarihi</b>:@blogumuz.RegisterDate.Value.ToShortDateString()</div>
+                                   
+                                    <div class="col-md-6">
+                                        <div><b>Yazar: </b>@kullanicilar.FirstOrDefault(x => x.UserId == blogumuz.UserId).Username <b> Kategori: </b>@kategori.FirstOrDefault(x => x.CategoryId == blogumuz.CategoryId).CategoryName</div>
+                                       
                                     </div>
                                     <div class="col-md-2"></div>
 
@@ -68,46 +72,32 @@
                             </div>
                         </div>
                     }
-                    <ul class="social-icon">
-                        <li><a href="https://www.facebook.com/salihcan.yilmaz.9" target="_blank" class="facebook"><i class="icon-social-facebook"></i></a></li>
-                        <li><a href="#" target="_blank" class="twitter"><i class="icon-social-twitter"></i></a></li>
-                        <li><a href="#" target="_blank" class="behance"><i class="icon-social-behance"></i></a></li>
-                        <li><a href="#" target="_blank" class="dribbble"><i class="icon-social-dribbble"></i></a></li>
-                    </ul>
-
+                    
+                    
                 </div>
-                <div class="col-md-2">
-
-                    <h3>Kategoriler</h3>
-                    <ul>
-                        @foreach (Categories item in kategori)
-                        {
-                            <li>@item.CategoryName<a href="">(@blog.Where(x=>x.CategoryId==item.CategoryId).Count())</a></li>
-                        }
-                    </ul>
+                <div class="col-md-5">
+                    <div class="about-me-text" style="text-align:center;float:right">
+                        <h3>Kategoriler</h3>
+                        <ul>
+                            @foreach (Categories item in kategori)
+            {
+                                <li>@item.CategoryName<a href="/Blog/KategoriyeGoreListele/@item.CategoryId">(@blog.Where(x => x.CategoryId == item.CategoryId).Count())</a></li>
+                            }
+                        </ul>
+                    </div>
                 </div>
+
             </div>
         </div>   
     </div>
 </section>
 
-<div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-mb30">
-       @foreach (Blogs blogumuz in Model)
-       {
-        <div class="fh5co-product">
-            <img src="images/slide_1.jpg" alt="FREEHTML5.co Free HTML5 Template Bootstrap" class="img-responsive img-rounded to-animate">
-            <h4>@blogumuz.Title</h4>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-            <p><a href="#">Devamını Oku</a></p>
-        </div>
-       }
-    </div>
-    
-   
-    
 
-</div>
+
+
+
+
+
 
 
      

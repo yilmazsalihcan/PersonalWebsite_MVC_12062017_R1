@@ -23,7 +23,25 @@ namespace PersonalWebsite_MVC.Controllers
         {
             Blogs blog = db.Blogs.FirstOrDefault(x => x.BlogId == id);
 
+            ViewBag.BlogId = id;
+
             return View(blog);
         }
+
+        [HttpPost]
+        public ActionResult YorumYap(string Description)
+        {
+
+            Comments yorum = new Comments();
+            yorum.Title = "dsadsa";
+            yorum.Description = Description;
+            yorum.UserId = 1;
+            yorum.RegisterDate = DateTime.Now;
+            yorum.BlogId =1;
+            db.Comments.Add(yorum);
+            db.SaveChanges();
+            return RedirectToAction("BlogDetayBul","Index");
+        }
+
 	}
 }

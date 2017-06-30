@@ -51,7 +51,7 @@
                                     <td>@user.RegisterDate.Value.ToShortDateString()</td>
                                 }     
                                 <td><a href="/AddUser/KullaniciDuzenle/@user.UserId" class="btn btn-warning rounded">Düzenle</a></td>
-                                <td><a href="#" class="btn btn-danger rounded">Sil</a></td>
+                                <td><a href="#" class="btn btn-danger rounded ktgSil" data-userId="@user.UserId">Sil</a></td>
                             </tr>  
                         }
                     </tbody>
@@ -60,4 +60,49 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+    
+    <script src="~/Content/admin/assets/js/required/jquery-1.11.1.min.js"></script>
+        
+    <script>
+
+        $(".ktgSil").click(function () {
+
+            var sonuc = confirm("Kayıt Silinsin mi?");
+            if (sonuc) {
+
+                var userId = $(this).data("userId");
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/AddUser/Sil/" + userId,
+                    success: function () {
+                        alert("Kayıt Silindi");
+                        window.location.replace("AddUser/Index");
+                    },
+                    error: function () {
+                        alert("Bir Hata oluştu");
+                    }
+
+
+                });
+
+
+                
+
+
+            }
+            else {
+                
+            }
+
+        });
+
+    </script>
+
+    
+    
+    }
 

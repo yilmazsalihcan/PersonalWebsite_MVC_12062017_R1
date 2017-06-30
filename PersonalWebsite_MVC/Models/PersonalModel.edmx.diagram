@@ -7,8 +7,8 @@
       <Diagram DiagramId="836b0aaad1c74a0e98631321c8cfedf4" Name="Diagram1">
         <EntityTypeShape EntityType="PERSONALModel.Blogs" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PERSONALModel.Categories" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PERSONALModel.Comments" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PERSONALModel.Images" Width="1.5" PointX="3.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PERSONALModel.Comments" Width="1.5" PointX="2.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PERSONALModel.Images" Width="1.5" PointX="4.75" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PERSONALModel.UserDetails" Width="1.5" PointX="6" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PERSONALModel.Users" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <AssociationConnector Association="PERSONALModel.FK_Blogs_Users" ManuallyRouted="false" />
@@ -17,6 +17,7 @@
         <AssociationConnector Association="PERSONALModel.FK_UserDetails_Users" ManuallyRouted="false" />
         <AssociationConnector Association="PERSONALModel.FK_Blogs_Categories" />
         <AssociationConnector Association="PERSONALModel.FK_Blogs_Images" />
+        <AssociationConnector Association="PERSONALModel.FK_Comments_Blogs" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

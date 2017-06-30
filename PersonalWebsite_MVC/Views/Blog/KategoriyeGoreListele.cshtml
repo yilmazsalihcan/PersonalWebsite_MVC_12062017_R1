@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "KategoriyeGoreListele";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+@using PersonalWebsite_MVC.Models;
+
+@model List<Blogs>
+
+<h2>KategoriyeGoreListele</h2>
+
+@foreach (var item in Model)
+{
+   <h2>@item.Categories1.CategoryName</h2>
+
+}
+
+
+
+

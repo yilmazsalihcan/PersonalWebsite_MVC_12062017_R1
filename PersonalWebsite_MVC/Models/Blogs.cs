@@ -14,6 +14,11 @@ namespace PersonalWebsite_MVC.Models
     
     public partial class Blogs
     {
+        public Blogs()
+        {
+            this.Comments = new HashSet<Comments>();
+        }
+    
         public short BlogId { get; set; }
         public Nullable<short> UserId { get; set; }
         public string Title { get; set; }
@@ -25,5 +30,6 @@ namespace PersonalWebsite_MVC.Models
         public virtual Users Users { get; set; }
         public virtual Categories Categories1 { get; set; }
         public virtual Images Images { get; set; }
+        public virtual ICollection<Comments> Comments { get; set; }
     }
 }

@@ -29,5 +29,12 @@ namespace PersonalWebsite_MVC.Controllers
 
             return View();
         }
+        [HttpPost]
+        public void Sil(short id)
+        {
+            Users u = db.Users.FirstOrDefault(x => x.UserId == id);
+            db.Users.Remove(u);
+            db.SaveChanges();
+        }
 	}
 }

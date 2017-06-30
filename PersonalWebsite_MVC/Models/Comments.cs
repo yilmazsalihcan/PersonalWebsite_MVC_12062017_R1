@@ -19,7 +19,9 @@ namespace PersonalWebsite_MVC.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> RegisterDate { get; set; }
+        public Nullable<short> BlogId { get; set; }
     
         public virtual Users Users { get; set; }
+        public virtual Blogs Blogs { get; set; }
     }
 }

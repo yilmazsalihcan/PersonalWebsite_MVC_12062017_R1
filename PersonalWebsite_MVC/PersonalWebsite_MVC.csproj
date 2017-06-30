@@ -987,6 +987,7 @@
     <Content Include="Content\admin\ui-tooltips-popover.html" />
     <Content Include="Content\admin\ui-typography.html" />
     <Content Include="Content\admin\ui-widgets.html" />
+    <Content Include="Content\admin\uploadimage\s4.jpg" />
     <Content Include="Content\Booster\elements.html" />
     <Content Include="Content\Booster\index.html" />
     <Content Include="Content\Booster\left-sidebar.html" />
@@ -1120,6 +1121,7 @@
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AddBlogController.cs" />
     <Compile Include="Controllers\AddCategoryController.cs" />
+    <Compile Include="Controllers\AddCommentController.cs" />
     <Compile Include="Controllers\AddImageController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -1202,6 +1204,7 @@
     <Content Include="Views\KategoriListele\KategoriSil.cshtml" />
     <Content Include="Views\AddUser\KullaniciDuzenle.cshtml" />
     <Content Include="Views\AddUser\KullaniciEkle.cshtml" />
+    <Content Include="Views\Blog\KategoriyeGoreListele.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1211,13 +1214,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\admin\uploadimage\" />
     <Folder Include="Content\Booster\css\" />
     <Folder Include="Content\Booster\fonts\" />
     <Folder Include="Content\Booster\images\" />
     <Folder Include="Content\Booster\js\" />
     <Folder Include="Content\Booster\sass\" />
     <Folder Include="Views\AddBlog\" />
+    <Folder Include="Views\AddComment\" />
     <Folder Include="Views\BlogEkle\" />
   </ItemGroup>
   <ItemGroup>

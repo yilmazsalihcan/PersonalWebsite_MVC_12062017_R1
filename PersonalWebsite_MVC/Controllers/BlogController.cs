@@ -18,6 +18,15 @@ namespace PersonalWebsite_MVC.Controllers
             ViewBag.Blogs = blogs;
             return View(blogs);
         }
+        public ActionResult KategoriyeGoreListele(short id)
+        {
+            //Bu kısımda sorun var. Hocaya sor. Nereye listeyi döndürecek.
+            List<Blogs> blogs = db.Blogs.Where(x => x.CategoryId == id).ToList();
+
+            return RedirectToAction("Index");
+        }
+
+       
 
     
 

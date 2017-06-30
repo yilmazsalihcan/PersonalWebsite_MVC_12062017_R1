@@ -28,7 +28,7 @@
                         <div class="col-md-12">
 
                             <div>
-                                <img src="/Content/images/testimonial/3.jpg" />
+                                <img src="~/Content/admin/uploadimage/s4.jpg" />
                             </div>
                             <div style="text-align:center;">
                                 <b>@Model.Title</b>
@@ -40,17 +40,45 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-md-6">Tarih:@Model.RegisterDate</div>
-                            <div class="col-md-6">Yazan:@Model.Users.Username</div>
+                            <div class="col-md-6"><b>Tarih</b>:@Model.RegisterDate.Value.ToShortDateString()</div>
+                            <div class="col-md-6"><b>Yazar</b>:@Model.Users.Username</div>
+                            
                         </div>
+                        
                     </div>
-
-
-                  
-                    
-
                 </div>
             </div>
 
     
 </section>
+<section id="about" class="about section-space-padding">
+    <div class="container about-me-text">
+        <div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h4">
+                    Yorum Yap
+                </div>
+                <div class="block-controls">
+                    <span aria-hidden="true" class="icon icon-cross icon-size-medium block-control-remove"></span>
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                </div>
+            </div>
+            <div class="block-content-outer">
+                <div class="block-content-inner">
+                    <form role="form" action="/BlogDetay/YorumYap/" method="post">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Yorum:</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Yorumunuzu Yazınız" name="Description">
+                        </div>
+
+                        <input type="submit" class="btn btn-primary" value="Yorum Yap">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+        </div>
+    </section>
