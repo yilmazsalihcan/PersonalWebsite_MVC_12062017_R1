@@ -16,12 +16,12 @@ namespace PersonalWebsite_MVC.Models
     {
         public Categories()
         {
-            this.Blogs1 = new HashSet<Blogs>();
+            this.Blogs = new HashSet<Blogs>();
         }
     
         public short CategoryId { get; set; }
         public string CategoryName { get; set; }
     
-        public virtual ICollection<Blogs> Blogs1 { get; set; }
+        public virtual ICollection<Blogs> Blogs { get; set; }
     }
 }

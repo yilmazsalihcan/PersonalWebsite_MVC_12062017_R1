@@ -16,14 +16,14 @@ namespace PersonalWebsite_MVC.Models
     {
         public Images()
         {
-            this.UserDetails = new HashSet<UserDetails>();
             this.Blogs = new HashSet<Blogs>();
+            this.UserDetails = new HashSet<UserDetails>();
         }
     
         public short ImageId { get; set; }
         public string ImageURL { get; set; }
     
-        public virtual ICollection<UserDetails> UserDetails { get; set; }
         public virtual ICollection<Blogs> Blogs { get; set; }
+        public virtual ICollection<UserDetails> UserDetails { get; set; }
     }
 }

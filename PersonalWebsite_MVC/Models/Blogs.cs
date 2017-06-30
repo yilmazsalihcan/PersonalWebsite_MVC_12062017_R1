@@ -21,15 +21,15 @@ namespace PersonalWebsite_MVC.Models
     
         public short BlogId { get; set; }
         public Nullable<short> UserId { get; set; }
+        public Nullable<short> CategoryId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> RegisterDate { get; set; }
-        public Nullable<short> CategoryId { get; set; }
         public Nullable<short> ImageId { get; set; }
     
-        public virtual Users Users { get; set; }
-        public virtual Categories Categories1 { get; set; }
+        public virtual Categories Categories { get; set; }
         public virtual Images Images { get; set; }
+        public virtual Users Users { get; set; }
         public virtual ICollection<Comments> Comments { get; set; }
     }
 }

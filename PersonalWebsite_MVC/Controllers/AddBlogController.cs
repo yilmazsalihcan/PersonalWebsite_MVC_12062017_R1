@@ -9,6 +9,7 @@ namespace PersonalWebsite_MVC.Controllers
     public class AddBlogController : Controller
     {
         // GET: AddBlog
+        
         PERSONALEntities db = new PERSONALEntities();
 
         [HttpPost]

@@ -185,20 +185,56 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PERSONALModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PERSONALEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Blogs" EntityType="PERSONALModel.Blogs" />
+          <EntitySet Name="Categories" EntityType="PERSONALModel.Categories" />
+          <EntitySet Name="Comments" EntityType="PERSONALModel.Comments" />
+          <EntitySet Name="Images" EntityType="PERSONALModel.Images" />
+          <EntitySet Name="UserDetails" EntityType="PERSONALModel.UserDetails" />
+          <EntitySet Name="Users" EntityType="PERSONALModel.Users" />
+          <AssociationSet Name="FK_Blogs_Categories" Association="PERSONALModel.FK_Blogs_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blogs_Images" Association="PERSONALModel.FK_Blogs_Images">
+            <End Role="Images" EntitySet="Images" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blogs_Users" Association="PERSONALModel.FK_Blogs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Blogs" Association="PERSONALModel.FK_Comments_Blogs">
+            <End Role="Blogs" EntitySet="Blogs" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Users" Association="PERSONALModel.FK_Comments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDetails_Images" Association="PERSONALModel.FK_UserDetails_Images">
+            <End Role="Images" EntitySet="Images" />
+            <End Role="UserDetails" EntitySet="UserDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDetails_Users" Association="PERSONALModel.FK_UserDetails_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserDetails" EntitySet="UserDetails" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Blogs">
           <Key>
             <PropertyRef Name="BlogId" />
           </Key>
           <Property Name="BlogId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int16" />
+          <Property Name="CategoryId" Type="Int16" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="RegisterDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Blogs_Users" FromRole="Blogs" ToRole="Users" />
-          <Property Name="CategoryId" Type="Int16" />
-          <NavigationProperty Name="Categories1" Relationship="PERSONALModel.FK_Blogs_Categories" FromRole="Blogs" ToRole="Categories" />
           <Property Name="ImageId" Type="Int16" />
+          <NavigationProperty Name="Categories" Relationship="PERSONALModel.FK_Blogs_Categories" FromRole="Blogs" ToRole="Categories" />
           <NavigationProperty Name="Images" Relationship="PERSONALModel.FK_Blogs_Images" FromRole="Blogs" ToRole="Images" />
+          <NavigationProperty Name="Users" Relationship="PERSONALModel.FK_Blogs_Users" FromRole="Blogs" ToRole="Users" />
           <NavigationProperty Name="Comments" Relationship="PERSONALModel.FK_Comments_Blogs" FromRole="Blogs" ToRole="Comments" />
         </EntityType>
         <EntityType Name="Categories">
@@ -207,7 +243,7 @@
           </Key>
           <Property Name="CategoryId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Blogs1" Relationship="PERSONALModel.FK_Blogs_Categories" FromRole="Categories" ToRole="Blogs" />
+          <NavigationProperty Name="Blogs" Relationship="PERSONALModel.FK_Blogs_Categories" FromRole="Categories" ToRole="Blogs" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
@@ -218,9 +254,9 @@
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="RegisterDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Comments_Users" FromRole="Comments" ToRole="Users" />
           <Property Name="BlogId" Type="Int16" />
           <NavigationProperty Name="Blogs" Relationship="PERSONALModel.FK_Comments_Blogs" FromRole="Comments" ToRole="Blogs" />
+          <NavigationProperty Name="Users" Relationship="PERSONALModel.FK_Comments_Users" FromRole="Comments" ToRole="Users" />
         </EntityType>
         <EntityType Name="Images">
           <Key>
@@ -228,8 +264,8 @@
           </Key>
           <Property Name="ImageId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ImageURL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="UserDetails" Relationship="Self.FK_UserDetails_Images" FromRole="Images" ToRole="UserDetails" />
           <NavigationProperty Name="Blogs" Relationship="PERSONALModel.FK_Blogs_Images" FromRole="Images" ToRole="Blogs" />
+          <NavigationProperty Name="UserDetails" Relationship="PERSONALModel.FK_UserDetails_Images" FromRole="Images" ToRole="UserDetails" />
         </EntityType>
         <EntityType Name="UserDetails">
           <Key>
@@ -239,8 +275,8 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="ImageId" Type="Int16" />
-          <NavigationProperty Name="Images" Relationship="Self.FK_UserDetails_Images" FromRole="UserDetails" ToRole="Images" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_UserDetails_Users" FromRole="UserDetails" ToRole="Users" />
+          <NavigationProperty Name="Images" Relationship="PERSONALModel.FK_UserDetails_Images" FromRole="UserDetails" ToRole="Images" />
+          <NavigationProperty Name="Users" Relationship="PERSONALModel.FK_UserDetails_Users" FromRole="UserDetails" ToRole="Users" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -251,94 +287,10 @@
           <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="RegisterDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Blogs" Relationship="Self.FK_Blogs_Users" FromRole="Users" ToRole="Blogs" />
-          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
-          <NavigationProperty Name="UserDetails" Relationship="Self.FK_UserDetails_Users" FromRole="Users" ToRole="UserDetails" />
+          <NavigationProperty Name="Blogs" Relationship="PERSONALModel.FK_Blogs_Users" FromRole="Users" ToRole="Blogs" />
+          <NavigationProperty Name="Comments" Relationship="PERSONALModel.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
+          <NavigationProperty Name="UserDetails" Relationship="PERSONALModel.FK_UserDetails_Users" FromRole="Users" ToRole="UserDetails" />
         </EntityType>
-        <Association Name="FK_Blogs_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
-          <End Role="Blogs" Type="Self.Blogs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Blogs">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Comments_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
-          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Comments">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserDetails_Images">
-          <End Role="Images" Type="Self.Images" Multiplicity="0..1" />
-          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Images">
-              <PropertyRef Name="ImageId" />
-            </Principal>
-            <Dependent Role="UserDetails">
-              <PropertyRef Name="ImageId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserDetails_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UserDetails">
-              <PropertyRef Name="UserDetailId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="PERSONALEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Blogs" EntityType="Self.Blogs" />
-          <EntitySet Name="Categories" EntityType="Self.Categories" />
-          <EntitySet Name="Comments" EntityType="Self.Comments" />
-          <EntitySet Name="Images" EntityType="Self.Images" />
-          <EntitySet Name="UserDetails" EntityType="Self.UserDetails" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK_Blogs_Users" Association="Self.FK_Blogs_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Blogs" EntitySet="Blogs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Comments" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserDetails_Images" Association="Self.FK_UserDetails_Images">
-            <End Role="Images" EntitySet="Images" />
-            <End Role="UserDetails" EntitySet="UserDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserDetails_Users" Association="Self.FK_UserDetails_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="UserDetails" EntitySet="UserDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Blogs_Categories" Association="PERSONALModel.FK_Blogs_Categories">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Blogs" EntitySet="Blogs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Blogs_Images" Association="PERSONALModel.FK_Blogs_Images">
-            <End Role="Images" EntitySet="Images" />
-            <End Role="Blogs" EntitySet="Blogs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comments_Blogs" Association="PERSONALModel.FK_Comments_Blogs">
-            <End Role="Blogs" EntitySet="Blogs" />
-            <End Role="Comments" EntitySet="Comments" />
-          </AssociationSet>
-        </EntityContainer>
         <Association Name="FK_Blogs_Categories">
           <End Type="PERSONALModel.Categories" Role="Categories" Multiplicity="0..1" />
           <End Type="PERSONALModel.Blogs" Role="Blogs" Multiplicity="*" />
@@ -363,6 +315,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Blogs_Users">
+          <End Type="PERSONALModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="PERSONALModel.Blogs" Role="Blogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Blogs">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Comments_Blogs">
           <End Type="PERSONALModel.Blogs" Role="Blogs" Multiplicity="0..1" />
           <End Type="PERSONALModel.Comments" Role="Comments" Multiplicity="*" />
@@ -372,6 +336,42 @@
             </Principal>
             <Dependent Role="Comments">
               <PropertyRef Name="BlogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Users">
+          <End Type="PERSONALModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="PERSONALModel.Comments" Role="Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDetails_Images">
+          <End Type="PERSONALModel.Images" Role="Images" Multiplicity="0..1" />
+          <End Type="PERSONALModel.UserDetails" Role="UserDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Images">
+              <PropertyRef Name="ImageId" />
+            </Principal>
+            <Dependent Role="UserDetails">
+              <PropertyRef Name="ImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDetails_Users">
+          <End Type="PERSONALModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="PERSONALModel.UserDetails" Role="UserDetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserDetails">
+              <PropertyRef Name="UserDetailId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -385,20 +385,20 @@
             <EntityTypeMapping TypeName="PERSONALModel.Blogs">
               <MappingFragment StoreEntitySet="Blogs">
                 <ScalarProperty Name="ImageId" ColumnName="ImageId" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="BlogId" ColumnName="BlogId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="BlogId" ColumnName="BlogId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="PERSONALModel.Categories">
               <MappingFragment StoreEntitySet="Categories">
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -406,40 +406,40 @@
             <EntityTypeMapping TypeName="PERSONALModel.Comments">
               <MappingFragment StoreEntitySet="Comments">
                 <ScalarProperty Name="BlogId" ColumnName="BlogId" />
-                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Images">
             <EntityTypeMapping TypeName="PERSONALModel.Images">
               <MappingFragment StoreEntitySet="Images">
-                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
                 <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserDetails">
             <EntityTypeMapping TypeName="PERSONALModel.UserDetails">
               <MappingFragment StoreEntitySet="UserDetails">
-                <ScalarProperty Name="UserDetailId" ColumnName="UserDetailId" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserDetailId" ColumnName="UserDetailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PERSONALModel.Users">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
