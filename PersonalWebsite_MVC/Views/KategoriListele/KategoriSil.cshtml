@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "KategoriSil";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+@using PersonalWebsite_MVC.Models;
+
+@model Categories
+
+<form action="/KategoriListele/KategoriSil" method="post">
+
+    <h2>KategoriSil</h2>
+
+    <b>@Model.CategoryName</b> Kategorisini Silmek İstdeğinizden emin  misiniz?<br>  
+     <input type="hidden" name="CategoryId" value="@Model.CategoryId" >
+    <input type="submit" value="Evet" class="btn btn-danger rounded" />
+
+</form>

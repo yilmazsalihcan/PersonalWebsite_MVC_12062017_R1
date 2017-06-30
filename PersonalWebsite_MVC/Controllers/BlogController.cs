@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using PersonalWebsite_MVC.Models;
+namespace PersonalWebsite_MVC.Controllers
+{
+    public class BlogController : Controller
+    {
+        //
+        // GET: /Blog/
+
+        PERSONALEntities db = new PERSONALEntities();
+        public ActionResult Index()
+        {
+            List<Blogs> blogs = db.Blogs.ToList();
+            ViewBag.Blogs = blogs;
+            return View(blogs);
+        }
+
+    
+
+	}
+}

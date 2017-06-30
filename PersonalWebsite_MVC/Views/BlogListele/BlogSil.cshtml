@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "BlogSil";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+@using PersonalWebsite_MVC.Models;
+
+@model Blogs
+
+<form action="/BlogListele/BlogSil" method="post">
+    <div>
+
+        <h2>Blog Silme Sayfası</h2>
+     
+
+
+        <p><b>@Model.Title</b> başlıklı bloğunuz silinsin mi?</p>
+        
+        <input type="hidden" name="BlogId" value="@Model.BlogId">
+        <input type="submit" name="" class="btn btn-danger rounded" value="Sil" />
+        
+     
+
+
+    </div>
+</form>
+
+
+

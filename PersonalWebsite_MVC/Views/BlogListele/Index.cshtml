@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Blogları Listele";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+@using PersonalWebsite_MVC.Models;
+
+@model List<Blogs>
+
+@{ 
+    PERSONALEntities db = new PERSONALEntities();
+    List<Users> user = db.Users.ToList();
+    List<Categories> kategori = db.Categories.ToList();
+    
+
+}
+
+<div class="col-md-12">
+    <div class="block">
+        <div class="block-heading">
+            <div class="main-text h2">
+                Blogların Listesi
+            </div>
+            <div class="block-controls">
+               
+                <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+            </div>
+        </div>
+        <div class="block-content-outer">
+            <div class="block-content-inner">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Başlığı</th>
+                            <th>İçeriği</th>
+                            <th>Kategorisi</th> 
+                            <th>Yazarı</th>
+                            <th>Resmi</th>
+                            <th>Yayınlanma Tarihi</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            @foreach (Blogs bloglistesi in Model)
+                            {
+
+                                <tr>
+                                    <td>@bloglistesi.Title</td>   
+                                    
+                                    @if (bloglistesi.Description.Length < 20)
+                                    {
+                                        <td>@bloglistesi.Description</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@bloglistesi.Description.Substring(0,20)</td>
+                                    }
+                                    <td>@kategori.FirstOrDefault(x => x.CategoryId == bloglistesi.CategoryId).CategoryName</td> 
+                                    <td>@user.FirstOrDefault(x => x.UserId == bloglistesi.UserId).Username</td>
+                                    <td>Şimdilik yok</td>
+                                    @if (bloglistesi.RegisterDate == null)
+                                    {
+                                        <td>Tarih Girilmemiş</td>
+                                    }
+                                    else
+                                    {
+                                        DateTime tarih = bloglistesi.RegisterDate.Value;
+                                            <td>@tarih.ToShortDateString()</td>
+                                    }
+
+                                    <td><a href="#" class="btn btn-warning rounded">Düzenle</a></td>
+                                    <td><a href="/BlogListele/BlogSil/@bloglistesi.BlogId" class="btn btn-danger rounded">Sil</a></td>
+
+                                </tr>
+
+                            }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

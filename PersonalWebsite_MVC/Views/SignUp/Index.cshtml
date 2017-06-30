@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Üye Kayıt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="contact" class="section-space-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="section-title">
+                    <h2>Kayıt Olun</h2>
+                    <div class="divider dark">
+                        <i class="icon-envelope-open"></i>
+                    </div>
+                    <p>Aşağıdaki bilgileri doldurarak sitemize kayıt olabilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+
+
+        
+        <div class="margin-top-30 margin-bottom-50">
+            <div class="row">
+
+                <div class="col-md-offset-3 col-sm-offset-2 col-md-6 col-sm-8">
+
+                    <div class="row">
+                        <div class="contact-us-detail"><a href="mailto:yilmazsalihcan@hotmail.com">yilmazsalihcan@hotmail.com</a></div>
+                        <form class="contact-us pattern-bg" method="post" action="/SignUp/KayitOl">
+                            
+                         
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="text" id="name" class="form-control" placeholder="Adınız" name="Name">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="text" id="name" class="form-control" placeholder="Kullanıcı Adınız" name="Username">
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="text" id="email" class="form-control" placeholder="şifreniz" name="Password">
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="button button-style button-style-dark button-style-color-2">Kayıt Ol</button>
+                            </div>
+                            <label>@ViewBag.Sonuc</label>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+<div>@ViewBag.Sonuc</div>

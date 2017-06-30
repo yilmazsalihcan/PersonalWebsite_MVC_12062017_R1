@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Kullanici Düzenle";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+@using PersonalWebsite_MVC.Models;
+
+@model Users
+
+<div class="col-md-12">
+    <div class="block">
+        <div class="block-heading">
+            <div class="main-text h2">
+                Kullanıcı Düzenle
+            </div>
+            <div class="block-controls">    
+                <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+            </div>
+        </div>
+        <div class="block-content-outer">
+            <div class="block-content-inner">
+                <form role="form" action="/KullaniciEkle/KullaniciDuzenle/@Model.UserId" method="post">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Adı:</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Yeni Adı" value="@Model.Name" name="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Kullanıcı Adı:</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Yeni Kullanıcı Adı" value="@Model.Username" name="Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Şifresi:</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Yeni Şifresi" value="@Model.Password" name="Password">
+                        
+
+                    </div>    
+                    <input type="submit" class="btn btn-primary" value="Değişiklikleri Kaydet">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

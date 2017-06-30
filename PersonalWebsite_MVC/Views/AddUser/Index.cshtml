@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+@using PersonalWebsite_MVC.Models;
+
+@model List<Users>
+
+<h2>Kullanıcı Listeleme İşlemi</h2>
+
+<div class="col-md-12">
+    <div class="block">
+        <div class="block-heading">
+            <div class="main-text h2">
+                Kullanıcı Listesi
+            </div>
+            <div class="block-controls">
+
+                <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+            </div>
+        </div>
+        <div class="block-content-outer">
+            <div class="block-content-inner">
+                <table class="table table-striped table-hover">
+                  
+                    <thead>
+                        <tr>
+                            <th>Tam Adı</th>
+                            <th>Kullanıcı Adı</th>
+                            <th>Kullanıcı Şifresi</th>
+                            <th>Kayıt Tarihi</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Users user in Model)
+                        {                         
+                            <tr>
+                                <td>@user.Name</td>
+                                <td>@user.Username</td>
+                                <td>@user.Password</td>
+                                @if (@user.RegisterDate==null)
+                                {
+                                     <td>Tarih Girilmemiş</td>
+                                }
+                                else
+                                {
+                                    <td>@user.RegisterDate.Value.ToShortDateString()</td>
+                                }     
+                                <td><a href="/AddUser/KullaniciDuzenle/@user.UserId" class="btn btn-warning rounded">Düzenle</a></td>
+                                <td><a href="#" class="btn btn-danger rounded">Sil</a></td>
+                            </tr>  
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
