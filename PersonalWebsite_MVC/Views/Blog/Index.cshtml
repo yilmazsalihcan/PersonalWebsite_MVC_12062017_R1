@@ -49,12 +49,12 @@
                         if (uzunluk > 100)
                         {
                             string yeniaciklama = blogumuz.Description.Substring(0, 50);
-                            <div style="text-align:center">@yeniaciklama<br/><a href="/BlogDetay/BlogDetayBul/@blogumuz.BlogId">Devamını Oku</a></div>
+                            <div style="text-align:center">@yeniaciklama<br/><a href="/BlogDetay/BlogDetayBul/@blogumuz.BlogId">Devamını Oku / </a><a href="/BlogDetay/BlogDetayBul/@blogumuz.BlogId"> Yorum Yap(@db.Comments.Where(x => x.BlogId == blogumuz.BlogId).Count())</a></div>
                         }
                         else
                         {
                             <div style="text-align:center">@blogumuz.Description</div>
-                            <div style="text-align:center"><a href="/BlogDetay/BlogDetayBul/@blogumuz.BlogId">Devamını Oku /</a><a href="/BlogDetay/BlogDetayBul/@blogumuz.BlogId"> Yorum Yap(@db.Comments.Where(x=>x.BlogId==blogumuz.BlogId).Count())</a></div>
+                            <div style="text-align:center"><a href="/BlogDetay/BlogDetayBul/@blogumuz.BlogId" >Devamını Oku / </a><a href="/BlogDetay/BlogDetayBul/@blogumuz.BlogId"> Yorum Yap(@db.Comments.Where(x=>x.BlogId==blogumuz.BlogId).Count())</a></div>
                                     }
                                 }
                                
