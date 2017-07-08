@@ -1151,6 +1151,7 @@
     <Compile Include="Models\Images.cs">
       <DependentUpon>PersonalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MailModel.cs" />
     <Compile Include="Models\PersonalModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
